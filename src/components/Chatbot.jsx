@@ -6,6 +6,7 @@ import { MdRestartAlt } from "react-icons/md";
 import { VscCopy } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import ReactTyped from "react-typed";
+import img from "../assets/logo.jpeg";
 import values from "../values";
 import Audio from "./Audio";
 import Color from "./Color";
@@ -140,12 +141,7 @@ export default function Chatbot() {
     <div className="chatbot">
       <div className="chatbot-head">
         <div className="img">
-          <img
-            src={
-              "https://consultantai.co/wp-content/uploads/2022/12/prod_img_5.jpg"
-            }
-            alt=""
-          />
+          <img src={img} alt="" />
         </div>
         <div className="info">
           <h4>{name || "Anna"} Consultant</h4>
@@ -160,13 +156,7 @@ export default function Chatbot() {
                 className={`chatbot-body-item ${(data?.user && "user") || ""}`}
               >
                 <div className="img" style={{ background: col }}>
-                  {(!data?.user && (
-                    <img
-                      src="https://consultantai.co/wp-content/uploads/2022/12/prod_img_5.jpg"
-                      alt=""
-                    />
-                  )) ||
-                    "U"}
+                  {(!data?.user && <img src={img} alt="" />) || "U"}
                 </div>
                 <div className="info">
                   {(!data.user && data.audio && <Audio url={data.url} />) || (
