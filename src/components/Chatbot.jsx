@@ -141,7 +141,9 @@ export default function Chatbot() {
       <div className="chatbot-head">
         <div className="img">
           <img
-            src="https://consultantai.co/wp-content/uploads/2022/12/prod_img_5.jpg"
+            src={
+              "https://consultantai.co/wp-content/uploads/2022/12/prod_img_5.jpg"
+            }
             alt=""
           />
         </div>
