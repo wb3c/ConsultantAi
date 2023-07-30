@@ -1,5 +1,6 @@
 const values = {};
 
-values.url = "https://www.goliath.jp";
+// values.url = "http://localhost:5000/";
+values.url = "https://om.consultantai.co/";
 
 export default values;

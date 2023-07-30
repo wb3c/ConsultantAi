@@ -25,7 +25,7 @@ img {
 
 .app {
   width: 100%;
-  height: 500px;
+  height: 450px;
   margin: 20px auto;
 }
 
@@ -135,6 +135,10 @@ img {
       align-items: center;
       justify-content: flex-end;
       gap: 5px;
+
+      @media screen and (max-width: 500px) {
+        width: 25%;
+      }
 
       button {
         background-color: transparent;
@@ -322,6 +326,26 @@ img {
       44% {
         transform: translateY(0px);
         background-color: #b5d9cb; //rgba(20,105,69,.2);
+      }
+    }
+
+    // question
+    .pre-qus {
+      padding: 10px 0 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      & > button {
+        background-color: $color-button;
+        border: none;
+        padding: 5px 10px;
+        color: $color-white;
+        font-weight: 500;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
       }
     }
   }

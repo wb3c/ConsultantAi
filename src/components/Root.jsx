@@ -4,7 +4,7 @@ import Chatbot from "./Chatbot";
 export default function Root() {
   return (
     <Routes>
-      <Route path="/:var1/:name" element={<Chatbot />} />
+      <Route path="/:var1/:name/:voice" element={<Chatbot />} />
     </Routes>
   );
 }

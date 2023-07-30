@@ -1,18 +1,22 @@
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { BiDotsVerticalRounded, BiSolidVolumeMute } from "react-icons/bi";
+import {
+  BiDotsVerticalRounded,
+  BiSolidMicrophone,
+  BiSolidMicrophoneOff,
+  BiSolidVolumeMute,
+} from "react-icons/bi";
 import { IoSend } from "react-icons/io5";
 import { MdRestartAlt } from "react-icons/md";
-import { VscCopy } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import ReactTyped from "react-typed";
-import img from "../assets/logo.jpeg";
-import values from "../values";
 import Audio from "./Audio";
+
+import axios from "axios";
+import values from "../values";
 import Color from "./Color";
 
 export default function Chatbot() {
-  const { var1, name } = useParams();
+  const { var1, name, voice } = useParams();
   const [isColor, setIscolor] = useState(false);
   const [col, setCol] = useState("#6600ff");
 
@@ -23,16 +27,89 @@ export default function Chatbot() {
   const [isAudio, setIsAudio] = useState(false);
   const { url } = values;
   const inputRef = useRef(null);
+  const [img, setImg] = useState("");
+  const [voiceId, setVoiceId] = useState("Joanna");
+  const [qus, setQus] = useState([
+    "What is Consultant Ai ?",
+    "How to Join Consultant Ai?",
+    "How to get started?",
+  ]);
 
-  const data = {
-    uid: "-1",
-    sceneId:
-      "workspaces/default-1ekqgxmfrwwnaos46pmvgq/characters/" +
-      (var1 || "galadriel"),
-    characterId: "-1",
-    playerName: "Client",
-    serverId: "default-1ekqgxmfrwwnaos46pmvgq",
+  const submitAssistan = (input) => {
+    if (input.trim()) {
+      setChatData((prev) => {
+        return [...prev, { message: input, user: true }];
+      });
+
+      setIsloading(true);
+      setInputData("");
+
+      axios
+        .post(url, {
+          text: input,
+          name: var1,
+        })
+        .then((d) => {
+          let text = "";
+
+          d.data.forEach((item) => {
+            if (item.text) {
+              text = `${text} ${(text && "\n") || ""} ${item.text}`;
+            }
+          });
+          if (text) {
+            if (!isAudio) {
+              setIsloading(false);
+
+              setChatData((prev) => {
+                return [...prev, { message: text }];
+              });
+            } else if (isAudio) {
+              axios
+                .post(
+                  `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
+                  {
+                    text,
+                    voice_id: voiceId,
+                  }
+                )
+                .then((d1) => {
+                  setIsloading(false);
+
+                  setChatData((prev) => {
+                    return [
+                      ...prev,
+                      { audio: true, url: d1.data.url, message: text },
+                    ];
+                  });
+                })
+                .catch((e) => {
+                  console.log(e);
+                  setIsloading(false);
+                });
+            }
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          setIsloading(false);
+        });
+    }
   };
+
+  useEffect(() => {
+    if (voice && voice === "male") {
+      setVoiceId("Matthew");
+    } else {
+      setVoiceId("Joanna");
+    }
+  }, [voice]);
+
+  useEffect(() => {
+    setImg(
+      `https://projects-all-together.s3.amazonaws.com/consultantai/images/${var1}.jpg`
+    );
+  }, [var1]);
 
   useEffect(() => {
     scrollToBottom();
@@ -40,93 +117,7 @@ export default function Chatbot() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (inputData) {
-      setChatData((prev) => {
-        return [...prev, { message: inputData, user: true }];
-      });
-      setIsloading(true);
-
-      axios
-        .post(`${url}/session/open`, data)
-        .then((d) => {
-          axios
-            .post(`${url}/session/${d.data.sessionId}/message`, {
-              message: inputData,
-            })
-            .then((d2) => {
-              axios
-                .get(`${url}/events/${data?.serverId}`)
-                .then((d3) => {
-                  let text = "";
-                  d3.data.forEach((item) => {
-                    if (item.type === "text" && item.type !== " ") {
-                      if (item.text) {
-                        text += item.text;
-                      }
-                    }
-                  });
-                  if (text) {
-                    if (!isAudio) {
-                      setIsloading(false);
-                      setChatData((prev) => {
-                        return [...prev, { message: text }];
-                      });
-                    } else if (isAudio) {
-                      axios
-                        .post(
-                          `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
-                          {
-                            text,
-                            voice_id: "Joanna",
-                          }
-                        )
-                        .then((d4) => {
-                          setChatData((prev) => {
-                            return [...prev, { audio: true, url: d4.data.url }];
-                          });
-                          setIsAudio(false);
-                        })
-                        .catch((e) => {
-                          console.log;
-                          setIsloading(false);
-                        });
-                    }
-                    axios
-                      .get(`${url}/session/${d.data.sessionId}/close`)
-                      .then((d1) => {
-                        setIsloading(false);
-                        console.log;
-                      })
-                      .catch((e) => {
-                        setIsloading(false);
-                        console.log(e);
-                      });
-                  }
-                })
-                .catch((e) => {
-                  setIsloading(false);
-                  console.log(e);
-                });
-            })
-            .catch((e) => {
-              setIsloading(false);
-              console.log(e);
-            });
-        })
-        .catch((e) => {
-          setIsloading(false);
-          axios
-            .get(`${url}/session/closeall/-1`)
-            .then((d) => {
-              console.log;
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-          console.log(e);
-        });
-    }
-    setInputData("");
+    submitAssistan(inputData);
   };
 
   const inputHandler = (e) => {
@@ -136,6 +127,47 @@ export default function Chatbot() {
   const scrollToBottom = () => {
     body.current.scrollIntoView({ behavior: "smooth", block: "end" });
   };
+
+  // speech to text
+  const [recognizedText, setRecognizedText] = useState("");
+  const [isMic, setIsMic] = useState(false);
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = true;
+
+  recognition.onresult = (event) => {
+    const lastResultIndex = event.results.length - 1;
+    const recognizedText = event.results[lastResultIndex][0].transcript;
+    setRecognizedText(recognizedText);
+  };
+
+  recognition.onerror = (event) => {
+    console.error("Error occurred in recognition:", event.error);
+  };
+
+  recognition.onstart = () => {
+    setIsMic(true);
+  };
+
+  recognition.onend = () => {
+    setIsMic(false);
+  };
+
+  const toggleListening = () => {
+    if (isMic) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  };
+
+  useEffect(() => {
+    submitAssistan(recognizedText);
+  }, [recognizedText]);
 
   return (
     <div className="chatbot">
@@ -159,19 +191,36 @@ export default function Chatbot() {
                   {(!data?.user && <img src={img} alt="" />) || "U"}
                 </div>
                 <div className="info">
-                  {(!data.user && data.audio && <Audio url={data.url} />) || (
+                  {
                     <p style={{ background: data.user && col }}>
-                      {(!data.user && (
-                        <ReactTyped
-                          strings={[data.message]}
-                          typeSpeed={10}
-                          backSpeed={10}
-                          cursorChar=""
-                        />
-                      )) ||
+                      {(!data.user &&
+                        ((data.audio && (
+                          <>
+                            <Audio url={data.url} />
+                            <ReactTyped
+                              strings={[
+                                data.message.replace(/\n/g, "<br /> <br />"),
+                              ]}
+                              typeSpeed={10}
+                              backSpeed={10}
+                              cursorChar=""
+                              onStringTyped={() => scrollToBottom()}
+                            />
+                          </>
+                        )) || (
+                          <ReactTyped
+                            strings={[
+                              data.message.replace(/\n/g, "<br /> <br />"),
+                            ]}
+                            typeSpeed={10}
+                            backSpeed={10}
+                            cursorChar=""
+                            onComplete={() => scrollToBottom()}
+                          />
+                        ))) ||
                         data.message}
                     </p>
-                  )}
+                  }
                 </div>
               </div>
             );
@@ -186,6 +235,18 @@ export default function Chatbot() {
               </div>
             </div>
           )}
+
+          <div className="pre-qus">
+            {qus.map((q, i) => (
+              <button
+                style={{ background: col }}
+                onClick={() => submitAssistan(q)}
+                key={i}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -202,7 +263,7 @@ export default function Chatbot() {
               onChange={(e) => {
                 inputHandler(e);
               }}
-              placeholder="Message anna It consaltant"
+              placeholder="Message"
               value={inputData}
             />
             <button style={{ color: col }}>
@@ -221,18 +282,16 @@ export default function Chatbot() {
           </button>{" "}
           <button
             onClick={() => {
-              setInputData("");
+              setChatData([]);
             }}
           >
             <MdRestartAlt />
           </button>
           <button
-            onClick={() => {
-              inputRef.current.select();
-              document.execCommand("copy");
-            }}
+            className={(isMic && "active") || ""}
+            onClick={() => toggleListening()}
           >
-            <VscCopy />
+            {(isMic && <BiSolidMicrophone />) || <BiSolidMicrophoneOff />}
           </button>{" "}
           <button onClick={() => setIscolor(true)}>
             <BiDotsVerticalRounded />
