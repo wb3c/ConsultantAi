@@ -15,13 +15,39 @@ import axios from "axios";
 import values from "../values";
 import Color from "./Color";
 
+import React from "react";
+
 export default function Chatbot() {
   const { var1, name, voice } = useParams();
   const [isColor, setIscolor] = useState(false);
   const [col, setCol] = useState("#6600ff");
 
   const body = useRef();
-  const [chatData, setChatData] = useState([]);
+  const [chatData, setChatData] = useState([
+    { message: "What is Consultant Ai ? ", user: true },
+    {
+      type: true,
+      message: `Consultant Ai are conversational Ai chatbots designed to help answer questions related to the chatbot your are talking with.
+      
+Each Consultant is trained using custom Ai language models, to accurately answer your questions in a conversational style, making Consultant Ai the first personalized assistant with immersive responses.`,
+    },
+    { message: "How to join Consultant Ai? ", user: true },
+    {
+      type: true,
+      message: `1. Follow us on Twitter :  https://twitter.com/Consultant_Ais
+      
+    2. Contact Us here to find our more: https://consultantai.co/contacts/`,
+    },
+    { message: "How to get started?", user: true },
+    {
+      type: true,
+      message: `1. say your name and say Hi 
+    2. Ask questions
+    3. Have Fun
+    
+    * Try to ask specific questions for best results`,
+    },
+  ]);
   const [inputData, setInputData] = useState("");
   const [isLoading, setIsloading] = useState(false);
   const [isAudio, setIsAudio] = useState(false);
@@ -29,11 +55,6 @@ export default function Chatbot() {
   const inputRef = useRef(null);
   const [img, setImg] = useState("");
   const [voiceId, setVoiceId] = useState("Joanna");
-  const [qus, setQus] = useState([
-    "What is Consultant Ai ?",
-    "How to Join Consultant Ai?",
-    "How to get started?",
-  ]);
 
   const submitAssistan = (input) => {
     if (input.trim()) {
@@ -149,18 +170,20 @@ export default function Chatbot() {
     console.error("Error occurred in recognition:", event.error);
   };
 
-  recognition.onstart = () => {
-    setIsMic(true);
-  };
+  // recognition.onstart = () => {
+  //   setIsMic(true);
+  // };
 
-  recognition.onend = () => {
-    setIsMic(false);
-  };
+  // recognition.onend = () => {
+  //   setIsMic(false);
+  // };
 
   const toggleListening = () => {
     if (isMic) {
+      setIsMic(false);
       recognition.stop();
     } else {
+      setIsMic(true);
       recognition.start();
     }
   };
@@ -207,17 +230,24 @@ export default function Chatbot() {
                               onStringTyped={() => scrollToBottom()}
                             />
                           </>
-                        )) || (
-                          <ReactTyped
-                            strings={[
-                              data.message.replace(/\n/g, "<br /> <br />"),
-                            ]}
-                            typeSpeed={10}
-                            backSpeed={10}
-                            cursorChar=""
-                            onComplete={() => scrollToBottom()}
-                          />
-                        ))) ||
+                        )) ||
+                          (!data.type && (
+                            <ReactTyped
+                              strings={[
+                                data.message.replace(/\n/g, "<br /> <br />"),
+                              ]}
+                              typeSpeed={(!data.type && 10) || 0}
+                              backSpeed={(!data.type && 10) || 1}
+                              cursorChar=""
+                              onComplete={() => scrollToBottom()}
+                            />
+                          )) ||
+                          data.message.split("\n").map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          )))) ||
                         data.message}
                     </p>
                   }
@@ -235,18 +265,6 @@ export default function Chatbot() {
               </div>
             </div>
           )}
-
-          <div className="pre-qus">
-            {qus.map((q, i) => (
-              <button
-                style={{ background: col }}
-                onClick={() => submitAssistan(q)}
-                key={i}
-              >
-                {q}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
