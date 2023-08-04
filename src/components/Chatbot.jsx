@@ -17,6 +17,9 @@ import Color from "./Color";
 
 import React from "react";
 
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
 export default function Chatbot() {
   const { var1, name, voice } = useParams();
   const [isColor, setIscolor] = useState(false);
@@ -153,38 +156,44 @@ Each Consultant is trained using custom Ai language models, to accurately answer
   const [recognizedText, setRecognizedText] = useState("");
   const [isMic, setIsMic] = useState(false);
 
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  useEffect(() => {
+    let recognition = null;
 
-  const recognition = new SpeechRecognition();
-  recognition.lang = "en-US";
-  recognition.continuous = true;
+    const handleRecognitionResult = (event) => {
+      const lastResultIndex = event.results.length - 1;
+      const recognizedText = event.results[lastResultIndex][0].transcript;
+      setRecognizedText(recognizedText);
+    };
 
-  recognition.onresult = (event) => {
-    const lastResultIndex = event.results.length - 1;
-    const recognizedText = event.results[lastResultIndex][0].transcript;
-    setRecognizedText(recognizedText);
-  };
+    recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = true;
+    recognition.onresult = handleRecognitionResult;
+    recognition.onerror = (event) => {
+      console.error("Error occurred in recognition:", event.error);
+    };
 
-  recognition.onerror = (event) => {
-    console.error("Error occurred in recognition:", event.error);
-  };
+    const startRecognition = () => {
+      recognition.start();
+    };
 
-  // recognition.onstart = () => {
-  //   setIsMic(true);
-  // };
-
-  // recognition.onend = () => {
-  //   setIsMic(false);
-  // };
+    const stopRecognition = () => {
+      if (recognition) {
+        recognition.stop();
+      }
+    };
+    if (isMic) {
+      startRecognition();
+    } else {
+      stopRecognition();
+    }
+  }, [isMic]);
 
   const toggleListening = () => {
     if (isMic) {
       setIsMic(false);
-      recognition.stop();
     } else {
       setIsMic(true);
-      recognition.start();
     }
   };
 
