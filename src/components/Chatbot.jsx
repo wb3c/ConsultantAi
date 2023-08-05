@@ -28,9 +28,23 @@ export default function Chatbot() {
   const body = useRef();
   const [chatData, setChatData] = useState([]);
   const [qus, setQus] = useState([
-    "What is Consultant Ai ?",
-    "How to join Consultant Ai? ",
-    "How to get started?",
+    {
+      qus: "What is Consultant Ai ? ",
+      ans: `Consultant Ai are conversational Ai chatbots designed to help answer questions related to the chatbot your are talking with.
+    Each Consultant is trained using custom Ai language models, to accurately answer your questions in a conversational style, making Consultant Ai the first personalized assistant with immersive responses.`,
+    },
+    {
+      qus: "How to join Consultant Ai? ",
+      ans: `1. Follow us on Twitter : <a target="blanck" href="https://twitter.com/Consultant_Ais"> https://twitter.com/Consultant_Ais</a>
+        2. Contact Us here to find our more: <a target="blanck" href="https://consultantai.co/contacts/"> https://consultantai.co/contacts/ </a>`,
+    },
+    {
+      qus: "How to get started?",
+      ans: `1. say your name and say Hi
+        2. Ask questions
+        3. Have Fun
+        * Try to ask specific questions for best results`,
+    },
   ]);
   const [inputData, setInputData] = useState("");
   const [isLoading, setIsloading] = useState(false);
@@ -186,6 +200,38 @@ export default function Chatbot() {
     submitAssistan(recognizedText);
   }, [recognizedText]);
 
+  const preQus = (d) => {
+    if (isAudio) {
+      setChatData((prev) => {
+        return [...prev, { message: d.qus, user: true }];
+      });
+      setIsloading(true);
+      axios
+        .post(
+          `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
+          {
+            text: d.ans,
+            voice_id: voiceId,
+          }
+        )
+        .then((d1) => {
+          setIsloading(false);
+
+          setChatData((prev) => {
+            return [...prev, { audio: true, url: d1.data.url, message: d.ans }];
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          setIsloading(false);
+        });
+    } else {
+      setChatData((prev) => {
+        return [...prev, { message: d.qus, user: true }, { message: d.ans }];
+      });
+    }
+  };
+
   return (
     <div className="chatbot">
       <div className="chatbot-head">
@@ -272,10 +318,10 @@ export default function Chatbot() {
                 style={{
                   borderColor: col,
                 }}
-                onClick={() => submitAssistan(q)}
+                onClick={() => preQus(q)}
                 key={i}
               >
-                {q}
+                {q.qus}
               </button>
             ))}
           </div>

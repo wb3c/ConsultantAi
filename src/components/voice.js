@@ -9,23 +9,3 @@
 
 
 
-// { message: "What is Consultant Ai ? ", user: true },
-    //     {
-    //       type: true,
-    //       message: `Consultant Ai are conversational Ai chatbots designed to help answer questions related to the chatbot your are talking with.
-    // Each Consultant is trained using custom Ai language models, to accurately answer your questions in a conversational style, making Consultant Ai the first personalized assistant with immersive responses.`,
-    //     },
-    //     { message: "How to join Consultant Ai? ", user: true },
-    //     {
-    //       type: true,
-    //       message: `1. Follow us on Twitter :  https://twitter.com/Consultant_Ais
-    //     2. Contact Us here to find our more: https://consultantai.co/contacts/`,
-    //     },
-    //     { message: "How to get started?", user: true },
-    //     {
-    //       type: true,
-    //       message: `1. say your name and say Hi
-    //     2. Ask questions
-    //     3. Have Fun
-    //     * Try to ask specific questions for best results`,
-    //     },
