@@ -26,30 +26,11 @@ export default function Chatbot() {
   const [col, setCol] = useState("#6600ff");
 
   const body = useRef();
-  const [chatData, setChatData] = useState([
-    { message: "What is Consultant Ai ? ", user: true },
-    {
-      type: true,
-      message: `Consultant Ai are conversational Ai chatbots designed to help answer questions related to the chatbot your are talking with.
-      
-Each Consultant is trained using custom Ai language models, to accurately answer your questions in a conversational style, making Consultant Ai the first personalized assistant with immersive responses.`,
-    },
-    { message: "How to join Consultant Ai? ", user: true },
-    {
-      type: true,
-      message: `1. Follow us on Twitter :  https://twitter.com/Consultant_Ais
-      
-    2. Contact Us here to find our more: https://consultantai.co/contacts/`,
-    },
-    { message: "How to get started?", user: true },
-    {
-      type: true,
-      message: `1. say your name and say Hi 
-    2. Ask questions
-    3. Have Fun
-    
-    * Try to ask specific questions for best results`,
-    },
+  const [chatData, setChatData] = useState([]);
+  const [qus, setQus] = useState([
+    "What is Consultant Ai ?",
+    "How to join Consultant Ai? ",
+    "How to get started?",
   ]);
   const [inputData, setInputData] = useState("");
   const [isLoading, setIsloading] = useState(false);
@@ -177,6 +158,10 @@ Each Consultant is trained using custom Ai language models, to accurately answer
       recognition.start();
     };
 
+    recognition.onend = () => {
+      setIsMic(false);
+    };
+
     const stopRecognition = () => {
       if (recognition) {
         recognition.stop();
@@ -274,6 +259,26 @@ Each Consultant is trained using custom Ai language models, to accurately answer
               </div>
             </div>
           )}
+
+          <div className="pre-qus">
+            {qus.map((q, i) => (
+              <button
+                onMouseOver={(e) => {
+                  e.target.style.background = col;
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.background = "transparent";
+                }}
+                style={{
+                  borderColor: col,
+                }}
+                onClick={() => submitAssistan(q)}
+                key={i}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -304,6 +309,9 @@ Each Consultant is trained using custom Ai language models, to accurately answer
               setIsAudio(!isAudio);
             }}
             className={(isAudio && "active") || ""}
+            style={{
+              color: isAudio && col,
+            }}
           >
             <BiSolidVolumeMute />
           </button>{" "}
@@ -316,6 +324,9 @@ Each Consultant is trained using custom Ai language models, to accurately answer
           </button>
           <button
             className={(isMic && "active") || ""}
+            style={{
+              color: isMic && col,
+            }}
             onClick={() => toggleListening()}
           >
             {(isMic && <BiSolidMicrophone />) || <BiSolidMicrophoneOff />}
