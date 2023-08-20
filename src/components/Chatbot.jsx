@@ -89,7 +89,7 @@ export default function Chatbot() {
                   `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
                   {
                     text,
-                    voice_id: voiceId,
+                    voice_id: { en: voiceId, ja: "Kazuha" },
                   }
                 )
                 .then((d1) => {
@@ -117,8 +117,12 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    if (voice && voice === "male") {
+    if (var1 === "luna_stardust") {
+      setVoiceId("Niamh");
+    } else if (voice && voice === "male") {
       setVoiceId("Matthew");
+    } else if (voice && voice === "femaileChaild") {
+      setVoiceId("Ivy");
     } else {
       setVoiceId("Joanna");
     }
@@ -211,7 +215,7 @@ export default function Chatbot() {
           `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
           {
             text: d.ans,
-            voice_id: voiceId,
+            voice_id: { en: voiceId, ja: "Kazuha" },
           }
         )
         .then((d1) => {
@@ -261,9 +265,7 @@ export default function Chatbot() {
                           <>
                             <Audio url={data.url} />
                             <ReactTyped
-                              strings={[
-                                data.message.replace(/\n/g, "<br /> <br />"),
-                              ]}
+                              strings={[data.message.replace(/\n/g, "<br /> ")]}
                               typeSpeed={10}
                               backSpeed={10}
                               cursorChar=""
@@ -273,9 +275,7 @@ export default function Chatbot() {
                         )) ||
                           (!data.type && (
                             <ReactTyped
-                              strings={[
-                                data.message.replace(/\n/g, "<br /> <br />"),
-                              ]}
+                              strings={[data.message.replace(/\n/g, "<br /> ")]}
                               typeSpeed={(!data.type && 10) || 0}
                               backSpeed={(!data.type && 10) || 1}
                               cursorChar=""
