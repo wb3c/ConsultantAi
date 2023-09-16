@@ -53,6 +53,7 @@ export default function Chatbot() {
   const inputRef = useRef(null);
   const [img, setImg] = useState("");
   const [voiceId, setVoiceId] = useState("Joanna");
+  const [voiceIdJA, setVoiceIdJA] = useState("Kazuha");
 
   const submitAssistan = (input) => {
     if (input.trim()) {
@@ -89,7 +90,7 @@ export default function Chatbot() {
                   `https://jymjsykl31.execute-api.us-east-1.amazonaws.com/v1/text2speech`,
                   {
                     text,
-                    voice_id: { en: voiceId, ja: "Kazuha" },
+                    voice_id: { en: voiceId, ja: voiceIdJA },
                   }
                 )
                 .then((d1) => {
@@ -123,6 +124,9 @@ export default function Chatbot() {
       setVoiceId("Matthew");
     } else if (voice && voice === "femaileChaild") {
       setVoiceId("Ivy");
+    } else if (voice && voice === "nami") {
+      setVoiceId("Ruth");
+      setVoiceIdJA("Tomoko");
     } else {
       setVoiceId("Joanna");
     }

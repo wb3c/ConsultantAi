@@ -1,0 +1,334 @@
+.chatbot {
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  width: 100%;
+  height: 100%;
+  background-color: $color-bg;
+  border: 1px solid $color-border;
+  color: $color-white;
+  position: relative;
+
+  &-head {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    // box shadow
+    box-shadow: 0px 2px 20px -4px rgba($color-border, 0.75);
+    -webkit-box-shadow: 0px 2px 20px -4px rgba($color-border, 0.75);
+    -moz-box-shadow: 0px 2px 20px -4px rgba($color-border, 0.75);
+
+    .img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .info {
+      h4 {
+        font-size: 24px;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    // box shadow
+    box-shadow: 2px 0px 20px -4px rgba($color-border, 0.75);
+    -webkit-box-shadow: 2px 0px 20px -4px rgba($color-border, 0.75);
+    -moz-box-shadow: 2px 0px 20px -4px rgba($color-border, 0.75);
+
+    .form {
+      width: 100%;
+      height: 50px;
+      form {
+        width: 100%;
+        height: 100%;
+        border-radius: 2rem;
+        position: relative;
+        background-color: $color-bg-1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input {
+          width: 100%;
+          padding: 10px 20px;
+          background-color: transparent;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          color: $color-white;
+
+          &::placeholder {
+            color: #7a7a7a;
+          }
+        }
+        button {
+          background-color: transparent;
+          border: none;
+          font-size: 24px;
+          margin-right: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $color-button;
+          opacity: 0.8;
+          transition: 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .buttons {
+      width: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+
+      @media screen and (max-width: 500px) {
+        width: 25%;
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+        color: #7a7a7a;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+
+        &:hover {
+          color: #fff;
+        }
+
+        &.active {
+          color: $color-button;
+        }
+      }
+    }
+
+    .color {
+      z-index: 100;
+      background-color: $color-bg-1;
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      border-radius: 10px;
+
+      .info {
+        display: flex;
+        padding-bottom: 10px;
+        justify-content: space-between;
+      }
+
+      span {
+        display: block;
+      }
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100%;
+
+    &-wrp {
+      overflow-y: auto;
+      width: 100%;
+      height: calc(100% - 150px);
+    }
+
+    &-item {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 3px;
+      padding: 10px;
+
+      .img {
+        width: 20px !important;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $color-button;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-size: 800;
+        overflow: hidden;
+      }
+
+      .info {
+        max-width: calc(100% - 50px);
+      }
+
+      p {
+        padding: 10px;
+        background-color: $color-bg-1;
+        border-radius: 5px;
+
+        a {
+          text-decoration: none;
+          color: rgb(29, 155, 240);
+          padding: 0 5px;
+        }
+      }
+
+      .audio {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        .range {
+          width: 100px;
+          height: 4px;
+          background-color: $color-bg;
+          border-radius: 4px;
+          position: relative;
+
+          span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: $color-button;
+            border-radius: 40px;
+          }
+        }
+
+        button {
+          background-color: transparent;
+          border: 1px solid $color-white;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          color: $color-white;
+          font-size: 16px;
+
+          &.pdd {
+            padding-left: 4px;
+          }
+        }
+      }
+
+      &.user {
+        justify-content: flex-end;
+
+        .img {
+          order: 1;
+        }
+
+        p {
+          background-color: $color-button;
+        }
+      }
+    }
+
+    // typing dot
+
+    .chat-bubble {
+      background-color: $color-bg-1;
+      padding: 15px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      width: 100px;
+      margin-left: 30px;
+    }
+    .typing {
+      align-items: center;
+      display: flex;
+      height: 17px;
+    }
+    .typing .dot {
+      animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+      background-color: $color-white; //rgba(20,105,69,.7);
+      border-radius: 50%;
+      height: 7px;
+      margin-right: 4px;
+      vertical-align: middle;
+      width: 7px;
+      display: inline-block;
+    }
+    .typing .dot:nth-child(1) {
+      animation-delay: 200ms;
+    }
+    .typing .dot:nth-child(2) {
+      animation-delay: 300ms;
+    }
+    .typing .dot:nth-child(3) {
+      animation-delay: 400ms;
+    }
+    .typing .dot:last-child {
+      margin-right: 0;
+    }
+
+    @keyframes mercuryTypingAnimation {
+      0% {
+        transform: translateY(0px);
+        background-color: #6cad96; // rgba(20,105,69,.7);
+      }
+      28% {
+        transform: translateY(-7px);
+        background-color: #9ecab9; //rgba(20,105,69,.4);
+      }
+      44% {
+        transform: translateY(0px);
+        background-color: #b5d9cb; //rgba(20,105,69,.2);
+      }
+    }
+
+    // question
+    .pre-qus {
+      padding: 10px 0 0 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      @media screen and (max-width: 500px) {
+        flex-direction: column;
+      }
+
+      & > button {
+        background-color: transparent;
+        border: 1px solid $color-button;
+        padding: 10px 20px;
+        color: $color-white;
+        font-weight: 500;
+        font-size: 16px;
+        border-radius: 2rem;
+        cursor: pointer;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: $color-button;
+        }
+      }
+    }
+  }
+}
