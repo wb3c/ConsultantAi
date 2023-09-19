@@ -12,6 +12,11 @@
     width: 400px;
     box-shadow: $shadow;
     position: relative;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.01);
+    }
 
     &-top {
       padding: 32px 20px 20px;

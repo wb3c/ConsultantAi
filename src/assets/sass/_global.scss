@@ -6,6 +6,7 @@
 
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
+  overflow: hidden;
 }
 img {
   width: 100%;
@@ -159,6 +160,7 @@ button {
 .main-page {
   width: 100%;
   background-color: #f3f3f3;
+  overflow-y: auto;
 }
 
 .bg-white {
