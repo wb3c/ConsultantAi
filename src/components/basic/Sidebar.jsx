@@ -18,17 +18,17 @@ export default function Sidebar() {
     {
       name: "Appearance",
       icon: <PiCirclesThreePlusDuotone />,
-      url: "/",
+      url: "appearance",
     },
     {
       name: "Try My Chatbot",
       icon: <FiBarChart2 />,
-      url: "/",
+      url: "mychatbot",
     },
     {
       name: "Trining Materials",
       icon: <BsSliders2Vertical />,
-      url: "/",
+      url: "training",
     },
     {
       name: "Business Info",

@@ -1,4 +1,6 @@
 import AddWebsite from "../components/dashboard/AddWebsite";
+import Chatbots from "../components/dashboard/Chatbots";
+import DeleteChatbot from "../components/dashboard/DeleteChatbot";
 import Statistics from "../components/dashboard/Statistics";
 
 export default function Dashboard() {
@@ -12,6 +14,8 @@ export default function Dashboard() {
 
         <Statistics />
         <AddWebsite />
+        <Chatbots />
+        <DeleteChatbot />
       </div>
     </div>
   );

@@ -1,0 +1,21 @@
+.training {
+  &-form {
+    padding: 20px 32px;
+
+    textarea {
+      margin-top: 20px;
+      width: 100%;
+      border: $border;
+      border-radius: 4px;
+      height: 200px;
+      padding: 10px;
+      outline: none;
+      font-size: 16px;
+      color: $color-black;
+
+      &:focus {
+        border-color: $color-theme;
+      }
+    }
+  }
+}

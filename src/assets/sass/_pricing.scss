@@ -1,0 +1,84 @@
+.pricing {
+  &-wrp {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  &-item {
+    background-color: $color-white;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: $shadow;
+    position: relative;
+
+    &-top {
+      padding: 32px 20px 20px;
+      border-bottom: $border;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      span {
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      strong {
+        font-size: 28px;
+        color: $color-theme;
+      }
+    }
+
+    &-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 450px;
+
+      li {
+        padding-left: 20px;
+        position: relative;
+        font-size: 18px;
+        color: $color-bg;
+
+        &::before {
+          content: "";
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: $color-bg-1;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &-bottom {
+      display: flex;
+      padding: 20px 20px 32px;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        width: 100%;
+        background-color: $color-theme;
+        padding: 15px;
+        color: $color-white;
+        font-size: 18px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        opacity: 0.8;
+        transition: 0.3s;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

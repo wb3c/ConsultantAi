@@ -1,7 +1,10 @@
 import { Route, Routes } from "react-router-dom";
+import Appearance from "../pages/Appearance";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Pricing from "../pages/Pricing";
+import Training from "../pages/Training";
 import Chatbot from "./Chatbot";
 
 export default function Root() {
@@ -9,6 +12,10 @@ export default function Root() {
     <Routes>
       <Route path="/" element={<Home />}>
         <Route index element={<Dashboard />} />
+        <Route path="appearance" element={<Appearance />} />
+        <Route path="mychatbot" element={<Chatbot />} />
+        <Route path="training" element={<Training />} />
+        <Route path="pricing" element={<Pricing />} />
 
         <Route path="*" element={<Dashboard />} />
       </Route>
