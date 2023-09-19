@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Addnew from "../pages/Addnew";
 import Appearance from "../pages/Appearance";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
@@ -16,6 +17,7 @@ export default function Root() {
         <Route path="mychatbot" element={<Chatbot />} />
         <Route path="training" element={<Training />} />
         <Route path="pricing" element={<Pricing />} />
+        <Route path="addnew" element={<Addnew />} />
 
         <Route path="*" element={<Dashboard />} />
       </Route>

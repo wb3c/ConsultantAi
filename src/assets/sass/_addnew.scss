@@ -1,0 +1,41 @@
+.addnew {
+  &-form {
+    padding: 20px;
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 20px;
+
+      label {
+        font-size: 16px;
+        text-transform: capitalize;
+
+        &::after {
+          content: "*";
+          color: red;
+        }
+      }
+
+      input,
+      textarea {
+        height: 50px;
+        padding: 10px;
+        border: $border;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+
+        &:focus {
+          border-color: $color-theme;
+        }
+      }
+
+      textarea {
+        height: 250px;
+      }
+    }
+  }
+}

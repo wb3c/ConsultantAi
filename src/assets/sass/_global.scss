@@ -79,6 +79,30 @@ button {
         width: 30px;
       }
     }
+
+    &-addbtn {
+      display: flex;
+      justify-content: center;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        gap: 5px;
+        font-size: 14px;
+        border: $border;
+        padding: 10px;
+        border-radius: 4px;
+        transition: 0.3s;
+        text-transform: capitalize;
+
+        &:hover {
+          transform: scale(1.01);
+        }
+      }
+    }
   }
 
   &-menu {

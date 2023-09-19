@@ -4,6 +4,7 @@ import { BsSliders2Vertical } from "react-icons/bs";
 import { FiBarChart2 } from "react-icons/fi";
 import { GiUpgrade } from "react-icons/gi";
 import { LuHome } from "react-icons/lu";
+import { MdAddCircle } from "react-icons/md";
 import { PiCirclesThreePlusDuotone } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
@@ -43,8 +44,10 @@ export default function Sidebar() {
           <img src={logo} alt="" />
           <strong>Consultant Ai</strong>
         </a>
-        <ul className="select">
-          <li>Chatbot name</li>
+        <ul className="sidebar-top-addbtn">
+          <Link to="addnew">
+            <MdAddCircle /> Create new chatbot
+          </Link>
         </ul>
       </div>
 
