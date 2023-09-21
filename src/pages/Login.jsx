@@ -1,15 +1,24 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
 import { TfiEmail } from "react-icons/tfi";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 import LoginSignup from "../components/login/LoginSingup";
 
 export default function Login() {
   const [isEmail, setIsEmail] = useState(false);
+  const navigate = useNavigate();
 
   const responseGoogle = (response) => {
-    console.log(response);
-    // Handle the response from Google here
+    const userData = {
+      firstName: response.Mx.e8,
+      LastName: response.Mx.n6,
+      email: response.Mx.Fy,
+      token: response.accessToken,
+    };
+    Cookies.set("loginData", JSON.stringify(userData));
+    navigate("/");
   };
   const faildGoogle = (response) => {
     console.log(response);
