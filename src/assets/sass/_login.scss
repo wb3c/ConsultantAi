@@ -38,15 +38,15 @@
 
     // buttons
     & > .btn {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
+      padding: 10px 15px !important;
+      border: none !important;
+      border-radius: 4px !important;
       background-color: $color-button;
-      color: $color-white;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      color: $color-white !important;
+      font-size: 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 7px !important;
 
       &.btn-fb {
         background-color: rgba($color: blue, $alpha: 0.8);
@@ -58,7 +58,8 @@
       }
 
       &.btn-google {
-        background-color: #0057e7;
+        background-color: #0057e7 !important;
+        box-shadow: none !important;
       }
     }
   }
@@ -115,6 +116,9 @@
     }
 
     &-form {
+      display: flex;
+      flex-direction: column;
+
       .form-inner {
         display: flex;
         gap: 20px;
@@ -145,6 +149,29 @@
 
           &:focus {
             border-color: $color-theme;
+          }
+        }
+
+        .form-group {
+          width: 100%;
+          position: relative;
+
+          & > span {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            font-size: 11px;
+            color: red;
+            display: none;
+          }
+
+          &.error {
+            input {
+              border-color: red;
+            }
+            & > span {
+              display: block;
+            }
           }
         }
       }

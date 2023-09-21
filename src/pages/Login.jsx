@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { FaSquareFacebook } from "react-icons/fa6";
-import { FcGoogle } from "react-icons/fc";
+import { GoogleLogin } from "react-google-login";
 import { TfiEmail } from "react-icons/tfi";
 import logo from "../assets/logo.jpeg";
 import LoginSignup from "../components/login/LoginSingup";
 
 export default function Login() {
   const [isEmail, setIsEmail] = useState(false);
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    // Handle the response from Google here
+  };
+  const faildGoogle = (response) => {
+    console.log(response);
+    // Handle the response from Google here
+  };
   return (
     <div className="login">
       <LoginSignup handler={setIsEmail} isShow={isEmail} />
@@ -23,12 +31,20 @@ export default function Login() {
         >
           <TfiEmail /> Continue with Email
         </button>
-        <button className="btn btn-fb">
+        {/* <button className="btn btn-fb">
           <FaSquareFacebook /> Continue with FaceBook
-        </button>
-        <button className="btn btn-google">
+        </button> */}
+        {/* <button className="btn btn-google">
           <FcGoogle /> Continue with Google
-        </button>
+        </button> */}
+        <GoogleLogin
+          className="btn btn-google"
+          clientId="338034772914-mjrgaac463v0pkbke93ck8t2dd0urv1s.apps.googleusercontent.com"
+          buttonText="Signin with Google"
+          onSuccess={responseGoogle}
+          onFailure={faildGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
       </div>
     </div>
   );
