@@ -1,12 +1,19 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import values from "../../values";
+import ThemeContext from "../context/Context";
 
 export default function Chatbots() {
   const [chatbots, setChatbots] = useState([]);
+  const [activeChatbot, setActiveChatbot] = useState({});
+  const context = useContext(ThemeContext);
+
+  useEffect(() => {
+    setActiveChatbot(context);
+  }, [context]);
 
   const user = JSON.parse(Cookies.get("loginData"));
   const navigate = useNavigate();
@@ -30,8 +37,8 @@ export default function Chatbots() {
         },
       })
       .then((d) => {
-        if (!d.data) {
-          navigate("login");
+        if (!d.data.length) {
+          navigate("/addnew");
         } else {
           setChatbots(d.data);
         }
@@ -40,6 +47,26 @@ export default function Chatbots() {
         console.log(e.response);
       });
   }, []);
+
+  const activeChatbotHandler = (chatbotId) => {
+    axios
+      .put(
+        `${values.url}chatbot/activechatbot`,
+        { chatbotId },
+        {
+          headers: {
+            token: user.token,
+          },
+        }
+      )
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  };
+
   return (
     <div className="chatbots bg-white">
       <div className="chatbots-top">
@@ -47,7 +74,14 @@ export default function Chatbots() {
       </div>
       <div className="chatbots-body">
         {chatbots.map((d) => (
-          <Link key={d.id} to="/" className="item">
+          <Link
+            onClick={() => activeChatbotHandler(d._id)}
+            key={d._id}
+            to="/"
+            className={`item ${
+              (d._id === activeChatbot.chatbotId && "active") || ""
+            }`}
+          >
             <h5>{d.name}</h5>
             <p>{truncateString(d.matarials)}</p>
           </Link>
