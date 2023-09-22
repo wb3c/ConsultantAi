@@ -41,6 +41,9 @@ export default function LoginSignup({ isShow, handler }) {
     });
   };
 
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 7);
+
   const submitHandler = () => {
     axios
       .post(
@@ -51,13 +54,15 @@ export default function LoginSignup({ isShow, handler }) {
         if (isSignup) {
           setIsSignup(false);
         } else {
-          Cookies.set("loginData", JSON.stringify(d.data.user));
+          Cookies.set("loginData", JSON.stringify(d.data.user), {
+            expires: expirationDate,
+          });
           navigate("/");
         }
       })
       .catch((e) => {
         setErrors(e.response.data.errors);
-        // console.log(e.response.data.errors);
+        // console.log(e);
       });
   };
 

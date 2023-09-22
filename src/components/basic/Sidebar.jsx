@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { BsSliders2Vertical } from "react-icons/bs";
@@ -6,10 +7,11 @@ import { GiUpgrade } from "react-icons/gi";
 import { LuHome } from "react-icons/lu";
 import { MdAddCircle } from "react-icons/md";
 import { PiCirclesThreePlusDuotone } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const menus = [
     {
       name: "Dashboard",
@@ -68,7 +70,13 @@ export default function Sidebar() {
         </li>
       </ul>
       <div className="sidebar-bottom">
-        <button className="logout">
+        <button
+          onClick={() => {
+            Cookies.remove("loginData");
+            navigate("login");
+          }}
+          className="logout"
+        >
           <BiLogIn />
           Logout
         </button>

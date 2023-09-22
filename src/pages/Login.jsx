@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
@@ -5,20 +6,32 @@ import { TfiEmail } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 import LoginSignup from "../components/login/LoginSingup";
+import values from "../values";
 
 export default function Login() {
   const [isEmail, setIsEmail] = useState(false);
   const navigate = useNavigate();
 
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 7);
+
   const responseGoogle = (response) => {
     const userData = {
       firstName: response.Mx.e8,
-      LastName: response.Mx.n6,
+      lastName: response.Mx.n6,
       email: response.Mx.Fy,
-      token: response.accessToken,
+      id: response.Fa,
     };
-    Cookies.set("loginData", JSON.stringify(userData));
-    navigate("/");
+
+    axios
+      .post(`${values.url}users/google/login`, userData)
+      .then((d) => {
+        Cookies.set("loginData", JSON.stringify(d.data), {
+          expires: expirationDate,
+        });
+        navigate("/");
+      })
+      .catch((e) => console.log(e.response));
   };
   const faildGoogle = (response) => {
     console.log(response);

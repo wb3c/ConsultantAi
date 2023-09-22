@@ -1,31 +1,57 @@
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import values from "../../values";
 
 export default function Chatbots() {
+  const [chatbots, setChatbots] = useState([]);
+
+  const user = JSON.parse(Cookies.get("loginData"));
+  const navigate = useNavigate();
+
+  const truncateString = (inputString, maxWords = 40) => {
+    const words = inputString.split(" ");
+
+    if (words.length > maxWords) {
+      words.length = maxWords;
+      return words.join(" ") + "...";
+    }
+
+    return inputString;
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${values.url}chatbot`, {
+        headers: {
+          token: user.token,
+        },
+      })
+      .then((d) => {
+        if (!d.data) {
+          navigate("login");
+        } else {
+          setChatbots(d.data);
+        }
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
+  }, []);
   return (
     <div className="chatbots bg-white">
       <div className="chatbots-top">
         <FiUsers /> <h4>Other Chatbots</h4>
       </div>
       <div className="chatbots-body">
-        <Link to="/" className="item">
-          <h5>Harun</h5>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem
-            qui, hic ut ratione architecto cupiditate fugit nulla culpa
-            laboriosam aspernatur, eaque id, aliquid cumque at obcaecati nam
-            eius dicta ea.
-          </p>
-        </Link>
-        <Link to="/" className="item">
-          <h5>Harun</h5>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem
-            qui, hic ut ratione architecto cupiditate fugit nulla culpa
-            laboriosam aspernatur, eaque id, aliquid cumque at obcaecati nam
-            eius dicta ea.
-          </p>
-        </Link>
+        {chatbots.map((d) => (
+          <Link key={d.id} to="/" className="item">
+            <h5>{d.name}</h5>
+            <p>{truncateString(d.matarials)}</p>
+          </Link>
+        ))}
       </div>
     </div>
   );

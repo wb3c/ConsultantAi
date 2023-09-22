@@ -98,6 +98,16 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 400px;
+    height: 200px;
+    transition: 0.4s;
+    border-radius: 8px;
+
+    &.active,
+    &:hover {
+      background-color: $color-theme;
+      color: $color-white;
+    }
 
     h5 {
       font-size: 18px;
