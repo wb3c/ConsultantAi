@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { GoogleLogin } from "react-google-login";
 import { TfiEmail } from "react-icons/tfi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 import LoginSignup from "../components/login/LoginSingup";
 import values from "../values";
@@ -37,14 +37,15 @@ export default function Login() {
     console.log(response);
     // Handle the response from Google here
   };
+
   return (
     <div className="login">
       <LoginSignup handler={setIsEmail} isShow={isEmail} />
       <div className="login-inner">
-        <a href="/" className="brand">
+        <Link to="/" className="brand">
           <img src={logo} alt="" />
           <strong>consultant ai</strong>
-        </a>
+        </Link>
         <button
           onClick={() => {
             setIsEmail(true);

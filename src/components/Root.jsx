@@ -7,11 +7,19 @@ import Login from "../pages/Login";
 import Pricing from "../pages/Pricing";
 import Training from "../pages/Training";
 import Chatbot from "./Chatbot";
+import PrivateRoute from "./PrivateRoute";
 
 export default function Root() {
   return (
     <Routes>
-      <Route path="/" element={<Home />}>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      >
         <Route index element={<Dashboard />} />
         <Route path="appearance" element={<Appearance />} />
         <Route path="mychatbot" element={<Chatbot />} />

@@ -40,7 +40,24 @@ export default function Addnew() {
         },
       })
       .then((d) => {
-        navigate("/");
+        console.log(d.data._id);
+        axios
+          .put(
+            `${values.url}chatbot/activechatbot`,
+            { chatbotId: d.data._id },
+            {
+              headers: {
+                token: user?.token,
+              },
+            }
+          )
+          .then(() => {
+            navigate("/");
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log(e.response);
+          });
       })
       .catch((e) => {
         setErrors(e.response.data.errors);

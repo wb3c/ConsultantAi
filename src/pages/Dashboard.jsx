@@ -6,14 +6,14 @@ import Statistics from "../components/dashboard/Statistics";
 import values from "../values";
 
 export default function Dashboard() {
-  const user = JSON.parse(Cookies.get("loginData"));
+  const user = Cookies.get("loginData") && JSON.parse(Cookies.get("loginData"));
 
   return (
     <div className="dashboard">
       <div className="container">
         <div className="dashboard-basic">
           <h1 className="title">
-            Good {values.getCurrentTime()}, {user.firstName} {user.lastName}!
+            Good {values.getCurrentTime()}, {user?.firstName} {user?.lastName}!
           </h1>{" "}
           <span>Free plan</span>
         </div>

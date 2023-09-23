@@ -27,11 +27,6 @@ export default function Home() {
       });
   }, []);
 
-  useEffect(() => {
-    if (!token) {
-      navigate("login");
-    }
-  });
   return (
     <section className="home">
       <ThemeContext.Provider value={activeChatbot}>

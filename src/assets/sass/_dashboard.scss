@@ -1,4 +1,8 @@
 .dashboard {
+  height: 100vh;
+  margin-bottom: 20px;
+  overflow-y: auto;
+
   &-basic {
     display: flex;
     align-items: center;
@@ -109,8 +113,53 @@
       color: $color-white;
     }
 
+    &.add-new-chatbot {
+      background-color: transparent;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px dashed $color-theme;
+      color: $color-bg-1;
+      flex-direction: row;
+      text-transform: uppercase;
+    }
+
     h5 {
       font-size: 18px;
+    }
+  }
+
+  .buttons {
+    padding: 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+
+    & > button {
+      width: 100px;
+      height: 40px;
+      border-radius: 4px;
+      border: none;
+      background-color: $color-theme;
+      color: $color-white;
+      font-size: 16px;
+      text-transform: capitalize;
+      opacity: 0.8;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:disabled {
+        background-color: $color-bg;
+        opacity: 0.5;
+        cursor: default;
+      }
     }
   }
 }

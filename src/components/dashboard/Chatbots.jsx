@@ -2,7 +2,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
+import { GrAdd } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import values from "../../values";
 import ThemeContext from "../context/Context";
 
@@ -11,11 +14,16 @@ export default function Chatbots() {
   const [activeChatbot, setActiveChatbot] = useState({});
   const context = useContext(ThemeContext);
 
+  const [show, setShow] = useState({
+    pre: 0,
+    next: 4,
+  });
+
   useEffect(() => {
     setActiveChatbot(context);
   }, [context]);
 
-  const user = JSON.parse(Cookies.get("loginData"));
+  const user = Cookies.get("loginData") && JSON.parse(Cookies.get("loginData"));
   const navigate = useNavigate();
 
   const truncateString = (inputString, maxWords = 40) => {
@@ -55,7 +63,7 @@ export default function Chatbots() {
         { chatbotId },
         {
           headers: {
-            token: user.token,
+            token: user?.token,
           },
         }
       )
@@ -73,19 +81,42 @@ export default function Chatbots() {
         <FiUsers /> <h4>Other Chatbots</h4>
       </div>
       <div className="chatbots-body">
-        {chatbots.map((d) => (
+        <Link className="add-new-chatbot item" to="/addnew">
+          <GrAdd />
+          add new
+        </Link>
+
+        {chatbots.slice(show.pre, show.next).map((d) => (
           <Link
             onClick={() => activeChatbotHandler(d._id)}
             key={d._id}
             to="/"
             className={`item ${
-              (d._id === activeChatbot.chatbotId && "active") || ""
+              (d._id === activeChatbot._id && "active") || ""
             }`}
           >
             <h5>{d.name}</h5>
             <p>{truncateString(d.matarials)}</p>
           </Link>
         ))}
+      </div>
+      <div className="buttons">
+        <button
+          onClick={() => {
+            setShow({ pre: show.pre - 4, next: show.next - 4 });
+          }}
+          disabled={show.pre === 0}
+        >
+          previous
+        </button>
+        <button
+          onClick={() => {
+            setShow({ pre: show.pre + 4, next: show.next + 4 });
+          }}
+          disabled={show.next >= chatbots.length}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

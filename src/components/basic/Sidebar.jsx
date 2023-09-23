@@ -1,14 +1,15 @@
 import Cookies from "js-cookie";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { BsSliders2Vertical } from "react-icons/bs";
 import { FiBarChart2 } from "react-icons/fi";
 import { GiUpgrade } from "react-icons/gi";
 import { LuHome } from "react-icons/lu";
-import { MdAddCircle } from "react-icons/md";
 import { PiCirclesThreePlusDuotone } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
+import ThemeContext from "../context/Context";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -39,6 +40,15 @@ export default function Sidebar() {
       url: "/",
     },
   ];
+
+  // active chatbot
+  const [activeChatbot, setActiveChatbot] = useState();
+  const context = useContext(ThemeContext);
+
+  useEffect(() => {
+    setActiveChatbot(context);
+  }, [context]);
+
   return (
     <div className="sidebar">
       <div className="sidebar-top">
@@ -47,9 +57,7 @@ export default function Sidebar() {
           <strong>Consultant Ai</strong>
         </a>
         <ul className="sidebar-top-addbtn">
-          <Link to="addnew">
-            <MdAddCircle /> Create new chatbot
-          </Link>
+          <strong>{activeChatbot?.name}</strong>
         </ul>
       </div>
 
