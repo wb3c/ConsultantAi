@@ -12,6 +12,10 @@ export default function Home() {
   const token = cookies ? JSON.parse(cookies).token : null;
   const [activeChatbot, setActiveChatbot] = useState({});
 
+  const chatbotUrl = `${values.fontEndUrl}/chatbot/${activeChatbot._id}/${
+    activeChatbot.voice || "female"
+  }`;
+
   useEffect(() => {
     axios
       .get(`${values.url}chatbot/activechatbot`, {
@@ -29,7 +33,7 @@ export default function Home() {
 
   return (
     <section className="home">
-      <ThemeContext.Provider value={activeChatbot}>
+      <ThemeContext.Provider value={{ activeChatbot, chatbotUrl }}>
         <Sidebar />
         <div className="main-page">
           <Outlet />

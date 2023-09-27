@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Addnew from "../pages/Addnew";
 import Appearance from "../pages/Appearance";
+import ChatbotClient from "../pages/ChatbotClient";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -22,7 +23,7 @@ export default function Root() {
       >
         <Route index element={<Dashboard />} />
         <Route path="appearance" element={<Appearance />} />
-        <Route path="mychatbot" element={<Chatbot />} />
+        <Route path="mychatbot/:id/:voice" element={<ChatbotClient />} />
         <Route path="training" element={<Training />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="addnew" element={<Addnew />} />
@@ -30,6 +31,7 @@ export default function Root() {
         <Route path="*" element={<Dashboard />} />
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/chatbot/:id/:voice" element={<ChatbotClient />} />
       <Route path="/:var1/:name/:voice" element={<Chatbot />} />
     </Routes>
   );

@@ -1,7 +1,9 @@
-import Chatbot from "../components/Chatbot";
+import { useContext } from "react";
 import Color from "../components/Color";
+import ThemeContext from "../components/context/Context";
 
 export default function Appearance() {
+  const context = useContext(ThemeContext);
   return (
     <div className="appearance">
       <div className="container">
@@ -49,7 +51,12 @@ export default function Appearance() {
           </form>
           <div className="appearance-preview">
             <div className="appearance-preview-inner">
-              <Chatbot />
+              <iframe
+                width={"100%"}
+                height={"100%"}
+                src={context.chatbotUrl}
+                frameBorder="0"
+              ></iframe>
             </div>
           </div>
         </div>

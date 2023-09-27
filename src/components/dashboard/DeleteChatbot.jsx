@@ -13,15 +13,17 @@ export default function DeleteChatbot() {
     : null;
 
   const deleteHandler = () => {
-    if (context && token) {
-      alert(`Permanently Delete Chatbot: ${context.name}. Are you sure?`);
+    if (context.activeChatbot && token) {
+      alert(
+        `Permanently Delete Chatbot: ${context.activeChatbot.name}. Are you sure?`
+      );
 
       axios
         .delete(`${values.url}chatbot`, {
           headers: {
             token,
           },
-          data: { id: context._id }, // Pass the data in the 'data' property
+          data: { id: context.activeChatbot._id }, // Pass the data in the 'data' property
         })
         .then((response) => {
           window.location.reload();

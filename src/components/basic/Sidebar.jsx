@@ -13,7 +13,11 @@ import ThemeContext from "../context/Context";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const menus = [
+  // active chatbot
+  const [activeChatbot, setActiveChatbot] = useState();
+  const context = useContext(ThemeContext);
+
+  const [menus, setMenus] = useState([
     {
       name: "Dashboard",
       icon: <LuHome />,
@@ -27,7 +31,7 @@ export default function Sidebar() {
     {
       name: "Try My Chatbot",
       icon: <FiBarChart2 />,
-      url: "mychatbot",
+      url: "",
     },
     {
       name: "Trining Materials",
@@ -39,14 +43,24 @@ export default function Sidebar() {
       icon: <AiOutlineExclamationCircle />,
       url: "/",
     },
-  ];
-
-  // active chatbot
-  const [activeChatbot, setActiveChatbot] = useState();
-  const context = useContext(ThemeContext);
+  ]);
 
   useEffect(() => {
-    setActiveChatbot(context);
+    setActiveChatbot(context.activeChatbot);
+    const updatedMenus = menus.map((item) => {
+      if (item.name === "Try My Chatbot") {
+        // Update the URL of the "Try My Chatbot" item
+        return {
+          ...item,
+          url: `mychatbot/${context.activeChatbot._id}/${
+            context.activeChatbot.voice || "female"
+          }`,
+        }; // Replace "/new-url" with your desired URL
+      }
+      return item;
+    });
+
+    setMenus(updatedMenus);
   }, [context]);
 
   return (

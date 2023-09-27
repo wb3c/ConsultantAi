@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { BsCodeSlash } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import Copylink from "../basic/CopyLInk";
+import ThemeContext from "../context/Context";
 
 export default function AddWebsite() {
+  const context = useContext(ThemeContext);
+
   return (
     <div className="addwebsite bg-white">
       <div className="addwebsite-top">
@@ -19,7 +23,7 @@ export default function AddWebsite() {
           </Link>{" "}
           for more message credits.
         </p>
-        <Copylink link="https://chatbots.consultantai.co/language_consultant/Language/male" />
+        <Copylink link={context.chatbotUrl} />
       </div>
     </div>
   );

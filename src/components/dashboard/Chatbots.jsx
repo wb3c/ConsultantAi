@@ -20,7 +20,7 @@ export default function Chatbots() {
   });
 
   useEffect(() => {
-    setActiveChatbot(context);
+    setActiveChatbot(context.activeChatbot);
   }, [context]);
 
   const user = Cookies.get("loginData") && JSON.parse(Cookies.get("loginData"));
