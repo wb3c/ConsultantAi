@@ -1,16 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import DarkMode from "../components/basic/DarkMode";
 import Sidebar from "../components/basic/Sidebar";
 import ThemeContext from "../components/context/Context";
 import values from "../values";
 
 export default function Home() {
-  const navigate = useNavigate();
   const cookies = Cookies.get("loginData");
   const token = cookies ? JSON.parse(cookies).token : null;
   const [activeChatbot, setActiveChatbot] = useState({});
+
+  const [isDark, setIsDark] = useState(false);
 
   const chatbotUrl = `${values.fontEndUrl}/chatbot/${activeChatbot._id}/${
     activeChatbot.voice || "female"
@@ -32,7 +34,8 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="home">
+    <section className={`home ${(isDark && "dark") || ""}`}>
+      <DarkMode setIsDark={setIsDark} isDark={isDark} />
       <ThemeContext.Provider value={{ activeChatbot, chatbotUrl }}>
         <Sidebar />
         <div className="main-page">

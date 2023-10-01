@@ -1,0 +1,106 @@
+.dark {
+  .sidebar-top .brand {
+    color: white;
+  }
+
+  .sidebar-top-addbtn {
+    color: white;
+  }
+  .sidebar-menu li > a {
+    color: white;
+
+    &.upgrade {
+      color: $color-theme;
+    }
+  }
+
+  .sidebar-bottom > button {
+    color: white;
+  }
+
+  .title {
+    color: white;
+  }
+
+  .bg-white {
+    background-color: $color-bg-1;
+    color: white;
+  }
+
+  .statistics-body .item,
+  .addwebsite-body .item,
+  .chatbots-body .item,
+  .delete-body .item {
+    box-shadow: 0px 0px 0px rgba(234, 213, 255, 0.4),
+      0px 0px 33px -15px rgba(231, 211, 251, 0.35);
+  }
+
+  .chatbots .item.add-new-chatbot {
+    color: white;
+  }
+
+  .chatbots .buttons > button:disabled {
+    background-color: #7da2ff;
+  }
+
+  .appearance-form {
+    background-color: $color-bg;
+  }
+
+  .appearance-form-top strong {
+    color: white;
+  }
+
+  .appearance-form .form-inner .form-group > label {
+    color: white;
+  }
+
+  .appearance-form .form-inner .form-group > input,
+  .appearance-form .form-inner .form-group textarea {
+    background-color: $color-bg-1;
+    color: white;
+  }
+
+  .appearance-preview {
+    background-color: $color-bg-1;
+  }
+
+  .training-form textarea {
+    background-color: $color-bg-1;
+    color: $color-white;
+  }
+
+  .pricing-item {
+    background-color: $color-bg-1;
+    color: white;
+  }
+
+  .pricing-item-body li {
+    color: white;
+  }
+
+  .sidebar-intigration > h4 {
+    color: white;
+  }
+
+  .sidebar-intigration-menu > li > button {
+    background-color: $color-bg-1;
+
+    &:hover {
+      background-color: $color-theme;
+    }
+  }
+}
+
+.home {
+  height: 100%;
+}
+
+body {
+  min-width: 1440px;
+  height: 100%;
+}
+body,
+html {
+  background-color: $color-bg;
+}

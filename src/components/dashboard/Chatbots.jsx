@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
-import { GrAdd } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -82,7 +82,7 @@ export default function Chatbots() {
       </div>
       <div className="chatbots-body">
         <Link className="add-new-chatbot item" to="/addnew">
-          <GrAdd />
+          <AiOutlinePlus />
           add new
         </Link>
 

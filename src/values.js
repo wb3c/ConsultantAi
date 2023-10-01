@@ -1,6 +1,6 @@
 const values = {};
 
-values.url = "http://localhost:5000/";
+// values.url = "http://localhost:5000/";
 values.url = "https://consultantaibackend.vercel.app/";
 values.fontEndUrl = "http://localhost:5173";
 // values.url = "https://om.consultantai.co/";

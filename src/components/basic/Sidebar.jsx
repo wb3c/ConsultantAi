@@ -2,7 +2,8 @@ import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
-import { BsSliders2Vertical } from "react-icons/bs";
+import { BsFacebook, BsMessenger, BsSliders2Vertical } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import { FiBarChart2 } from "react-icons/fi";
 import { GiUpgrade } from "react-icons/gi";
 import { LuHome } from "react-icons/lu";
@@ -91,6 +92,29 @@ export default function Sidebar() {
           </Link>
         </li>
       </ul>
+      <div className="sidebar-intigration">
+        <h4>Intigrations</h4>
+        <ul className="sidebar-intigration-menu">
+          <li>
+            <button>
+              <BsMessenger />
+              Connect with messenger
+            </button>
+          </li>
+          <li>
+            <button>
+              <BsFacebook />
+              Connect with facebook
+            </button>
+          </li>
+          <li>
+            <button>
+              <FcGoogle />
+              Connect with google
+            </button>
+          </li>
+        </ul>
+      </div>
       <div className="sidebar-bottom">
         <button
           onClick={() => {

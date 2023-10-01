@@ -138,6 +138,36 @@ button {
     }
   }
 
+  &-intigration {
+    padding: 20px;
+
+    &-menu {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      & > li > button {
+        height: 60px;
+        width: 100%;
+        background-color: rgb(183, 183, 183);
+        border: $border;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: $color-theme;
+        }
+      }
+    }
+  }
+
   &-bottom {
     position: absolute;
     bottom: 0;
@@ -188,6 +218,12 @@ button {
   overflow-y: auto;
 }
 
+.dark {
+  .main-page {
+    background-color: $color-bg;
+  }
+}
+
 .bg-white {
   background-color: $color-white;
   border-radius: 8px;
@@ -222,5 +258,57 @@ button {
     &.active {
       background-color: green;
     }
+  }
+}
+
+// dark mode
+
+.darkmode {
+  position: fixed;
+  right: 0;
+  top: 50px;
+  background-color: $color-theme;
+  padding: 8px 20px;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  .checkbox {
+    opacity: 0;
+    position: absolute;
+  }
+
+  .checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  svg {
+    color: #f1c40f;
+  }
+
+  svg {
+    color: #f39c12;
+  }
+
+  .checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+  }
+
+  .checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
   }
 }
