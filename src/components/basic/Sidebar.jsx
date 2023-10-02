@@ -34,6 +34,9 @@ export default function Sidebar() {
       icon: <FiBarChart2 />,
       url: "",
     },
+  ]);
+
+  const menuChatb = [
     {
       name: "Trining Materials",
       icon: <BsSliders2Vertical />,
@@ -44,7 +47,12 @@ export default function Sidebar() {
       icon: <AiOutlineExclamationCircle />,
       url: "/",
     },
-  ]);
+    {
+      name: "FAQs",
+      icon: <AiOutlineExclamationCircle />,
+      url: "/",
+    },
+  ];
 
   useEffect(() => {
     setActiveChatbot(context.activeChatbot);
@@ -85,13 +93,27 @@ export default function Sidebar() {
             </Link>
           </li>
         ))}
-        <li>
-          <Link className="upgrade" to={"/pricing"}>
-            <GiUpgrade />
-            Upgrade
-          </Link>
-        </li>
       </ul>
+
+      <div className="sidebar-intigration">
+        <h4>Chatbot</h4>
+        <ul className="sidebar-menu">
+          {menuChatb.map((d, i) => (
+            <li key={i}>
+              <Link to={d.url}>
+                {d.icon}
+                {d.name}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link className="upgrade" to={"/pricing"}>
+              <GiUpgrade />
+              Upgrade
+            </Link>
+          </li>
+        </ul>
+      </div>
       <div className="sidebar-intigration">
         <h4>Intigrations</h4>
         <ul className="sidebar-intigration-menu">

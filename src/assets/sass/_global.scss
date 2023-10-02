@@ -141,6 +141,10 @@ button {
   &-intigration {
     padding: 20px;
 
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+
     &-menu {
       margin-top: 20px;
       display: flex;

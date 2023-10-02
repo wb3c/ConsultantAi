@@ -90,6 +90,15 @@
       background-color: $color-theme;
     }
   }
+
+  .training-menu button {
+    color: $color-white;
+
+    &:hover,
+    &.active {
+      color: $color-theme;
+    }
+  }
 }
 
 .home {

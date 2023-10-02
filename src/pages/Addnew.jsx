@@ -75,6 +75,22 @@ export default function Addnew() {
               (errors && errors.name && "error") || ""
             }`}
           >
+            <label htmlFor="">Web site url</label>
+            <input
+              type="text"
+              name="name"
+              id=""
+              placeholder="https://example.com"
+              value={data.name}
+              onChange={changeHandler}
+            />
+            {errors.name && <span>{errors.name.msg}</span>}
+          </div>
+          <div
+            className={`addnew-form-group ${
+              (errors && errors.name && "error") || ""
+            }`}
+          >
             <label htmlFor="">Business Name</label>
             <input
               type="text"
