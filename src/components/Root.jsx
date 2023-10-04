@@ -3,6 +3,7 @@ import AddSkill from "../pages/AddSkill";
 import Addnew from "../pages/Addnew";
 import Appearance from "../pages/Appearance";
 import ChatbotClient from "../pages/ChatbotClient";
+import Contacts from "../pages/Contacts";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -29,6 +30,7 @@ export default function Root() {
         <Route path="pricing" element={<Pricing />} />
         <Route path="addnew" element={<Addnew />} />
         <Route path="addskill" element={<AddSkill />} />
+        <Route path="contats" element={<Contacts />} />
 
         <Route path="*" element={<Dashboard />} />
       </Route>

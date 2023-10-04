@@ -40,9 +40,9 @@ export default function Sidebar() {
       url: "",
     },
     {
-      name: "callect Contats",
+      name: "Captured Contats",
       icon: <AiTwotoneMoneyCollect />,
-      url: "",
+      url: "/contats",
     },
   ]);
 
