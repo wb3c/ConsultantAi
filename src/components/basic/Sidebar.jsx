@@ -1,6 +1,10 @@
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
-import { AiOutlineExclamationCircle, AiOutlinePlus } from "react-icons/ai";
+import {
+  AiOutlineExclamationCircle,
+  AiOutlinePlus,
+  AiTwotoneMoneyCollect,
+} from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { BsFacebook, BsMessenger, BsSliders2Vertical } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
@@ -33,6 +37,11 @@ export default function Sidebar() {
     {
       name: "Try My Chatbot",
       icon: <FiBarChart2 />,
+      url: "",
+    },
+    {
+      name: "callect Contats",
+      icon: <AiTwotoneMoneyCollect />,
       url: "",
     },
   ]);
