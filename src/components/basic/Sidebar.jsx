@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
-import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { AiOutlineExclamationCircle, AiOutlinePlus } from "react-icons/ai";
 import { BiLogIn } from "react-icons/bi";
 import { BsFacebook, BsMessenger, BsSliders2Vertical } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
@@ -11,6 +11,7 @@ import { PiCirclesThreePlusDuotone } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import ThemeContext from "../context/Context";
+import Select from "./Select";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -107,6 +108,12 @@ export default function Sidebar() {
             </li>
           ))}
           <li>
+            <Link className="add-skill" to={"/addskill"}>
+              <AiOutlinePlus />
+              add Skill
+            </Link>
+          </li>
+          <li>
             <Link className="upgrade" to={"/pricing"}>
               <GiUpgrade />
               Upgrade
@@ -136,6 +143,9 @@ export default function Sidebar() {
             </button>
           </li>
         </ul>
+      </div>
+      <div className="select-language">
+        <Select />
       </div>
       <div className="sidebar-bottom">
         <button

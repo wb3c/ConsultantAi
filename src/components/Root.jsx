@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AddSkill from "../pages/AddSkill";
 import Addnew from "../pages/Addnew";
 import Appearance from "../pages/Appearance";
 import ChatbotClient from "../pages/ChatbotClient";
@@ -27,6 +28,7 @@ export default function Root() {
         <Route path="training" element={<Training />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="addnew" element={<Addnew />} />
+        <Route path="addskill" element={<AddSkill />} />
 
         <Route path="*" element={<Dashboard />} />
       </Route>

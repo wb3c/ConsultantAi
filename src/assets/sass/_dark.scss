@@ -99,6 +99,23 @@
       color: $color-theme;
     }
   }
+
+  .select-active {
+    color: $color-white;
+  }
+
+  .add-skill-home {
+    background-color: $color-bg-1;
+    color: white;
+  }
+
+  .add-skill-home-body-bottom ul li .btns button {
+    color: $color-white;
+
+    &.del {
+      color: red;
+    }
+  }
 }
 
 .home {
